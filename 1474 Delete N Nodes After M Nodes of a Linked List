@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* deleteNodes(struct ListNode* head, int m, int n)
+{
+    struct ListNode * current = head;
+    struct ListNode * prev = NULL;
+    struct ListNode * del = NULL;
+    
+    int m_count = 0;
+    int n_count = 0;
+    
+    while(current != NULL)
+    {
+        if(m_count != m)
+        {
+            m_count++;
+            prev = current;
+            current = current->next;
+        }
+        else
+        {
+            m_count = 0;
+            while(n_count != n && current)
+            {
+                del = current;
+                current = current->next;
+                free(del);
+                n_count++;
+            }
+            n_count = 0;
+            prev->next = current;
+        }
+    }
+    return head;
+}
